@@ -1,6 +1,7 @@
-//Postorder Traversal BT (BottomUp Traversal) : Left->Right->Root
-
+//Level order Traversal BT : Using queue(FIFO) to store elements of each level and print iteratively
+//Do : Push root, then null(to define nextline print). Push children of root, pop root and null. Repeat for childern
 #include<iostream>
+#include<queue>
 using namespace std;
 
 class TreeNode
@@ -33,16 +34,30 @@ TreeNode *BuildTree(int *ar,int &index)
 	return newNode;
 }
 
-// Postorder Traverse Binary Tree
+// Level order Traverse Binary Tree
 void PrintTree(TreeNode *rootNode)
 {
-	if(rootNode == NULL)
+	queue<TreeNode*> treeQueue;
+	treeQueue.push(rootNode);
+	while(!treeQueue.empty())
 	{
-		return;
+		if(treeQueue.front()==NULL)
+		{
+			treeQueue.pop();
+			std::cout<<std::endl;
+			if(!treeQueue.empty())
+				treeQueue.push(NULL);
+		}
+		else
+		{
+			if(treeQueue.front()->leftNode)
+				treeQueue.push(treeQueue.front()->leftNode);
+			if(treeQueue.front()->rightNode)
+				treeQueue.push(treeQueue.front()->rightNode);
+			std::cout<<treeQueue.front()->data<<", ";
+			treeQueue.pop();
+		}
 	}
-	PrintTree(rootNode->leftNode);
-	PrintTree(rootNode->rightNode);
-	std::cout<<rootNode->data<<", ";
 }
 
 int main()
@@ -56,7 +71,7 @@ int main()
 		std::cin>>a[i];
 	}
 	TreeNode *rootNode = BuildTree(a,index);
-	std::cout<<"\nBinary Tree (Postorder) : ";
+	std::cout<<"\nBinary Tree (Level order) : ";
 	PrintTree(rootNode);
 
 	return 0;
