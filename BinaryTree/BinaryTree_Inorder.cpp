@@ -1,4 +1,4 @@
-//Preoreder Traversal BT : Root->Left->Right
+//Inorder Traversal BT : Left->Root->Right
 
 #include<iostream>
 using namespace std;
@@ -18,7 +18,7 @@ public:
 	}
 };
 
-// Building Tree
+// Building Tree 
 TreeNode *BuildTree(int *ar,int &index)
 {
 	if(ar[index] == -1)
@@ -33,15 +33,15 @@ TreeNode *BuildTree(int *ar,int &index)
 	return newNode;
 }
 
-// Preorder Traverse Binary Tree
+// Inorder Traverse Binary Tree
 void PrintTree(TreeNode *rootNode)
 {
 	if(rootNode == NULL)
 	{
 		return;
 	}
-	std::cout<<rootNode->data<<", ";
 	PrintTree(rootNode->leftNode);
+	std::cout<<rootNode->data<<", ";
 	PrintTree(rootNode->rightNode);
 }
 
@@ -56,7 +56,7 @@ int main()
 		std::cin>>a[i];
 	}
 	TreeNode *rootNode = BuildTree(a,index);
-	std::cout<<"\nBinary Tree (Preorder) : ";
+	std::cout<<"\nBinary Tree (Inorder) : ";
 	PrintTree(rootNode);
 
 	return 0;
