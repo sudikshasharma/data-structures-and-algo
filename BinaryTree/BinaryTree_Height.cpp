@@ -1,4 +1,4 @@
-//Level order Build BT : Using queue(FIFO) 
+// Height of BT : Traverse left-right subtree 
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -72,6 +72,16 @@ void PrintTree(TreeNode *rootNode)
 	}
 }
 
+// Return height of Binary Tree
+int TreeHeight(TreeNode *rootNode)
+{
+	if(rootNode == NULL)
+	{
+		return 0;
+	}
+	return max(TreeHeight(rootNode->leftNode),TreeHeight(rootNode->rightNode))+1;
+}
+
 int main()
 {
 	// input : 13 1 2 -1 -1 3 4 5 -1 -1 6 -1 -1 -1
@@ -86,6 +96,6 @@ int main()
 	TreeNode *rootNode = BuildTree(a,index);
 	std::cout<<"\nBinary Tree (Level order) : ";
 	PrintTree(rootNode);
-
+	std::cout<<"\nHeight of Binary Tree : "<<TreeHeight(rootNode);
 	return 0;
 }
