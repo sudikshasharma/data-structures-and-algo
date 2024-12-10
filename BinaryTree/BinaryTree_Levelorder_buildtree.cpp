@@ -1,5 +1,4 @@
-//Level order (BFS) Traversal BT : Using queue(FIFO) to store elements of each level and print iteratively
-//Do : Push root, then null(to define nextline print). Push children of root, pop root and null. Repeat for childern
+//Level order Build BT : Using queue(FIFO) 
 #include<iostream>
 #include<queue>
 using namespace std;
@@ -19,19 +18,28 @@ public:
 	}
 };
 
-// Building Tree 
+// Building Level order Tree 
 TreeNode *BuildTree(int *ar,int &index)
 {
-	if(ar[index] == -1)
+	queue<TreeNode*> treeQueue;
+	TreeNode *root = new TreeNode(ar[index++]);
+	treeQueue.push(root);
+	while(!treeQueue.empty())
 	{
-		index++;
-		return NULL;
+		TreeNode *curNode = treeQueue.front();
+		if(ar[index]!=-1)
+		{
+			curNode->leftNode = new TreeNode(ar[index++]);
+			treeQueue.push(curNode->leftNode);
+		}
+		if(ar[index]!=-1)
+		{
+			curNode->rightNode = new TreeNode(ar[index++]);
+			treeQueue.push(curNode->rightNode);
+		}
+		treeQueue.pop();
 	}
-	TreeNode *newNode = new TreeNode(ar[index]);
-	index++;
-	newNode->leftNode = BuildTree(ar, index);
-	newNode->rightNode = BuildTree(ar, index);
-	return newNode;
+
 }
 
 // Level order Traverse Binary Tree
